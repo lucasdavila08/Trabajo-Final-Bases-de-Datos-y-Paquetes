@@ -1,0 +1,1044 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}E:\FCEA\7° Semestre\Bases de Datos y Paquetes\Trabajo Final\Para Entregar\LOG_TrabajoFinal_TobíaDávila.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Jul 2019, 11:46:42
+{txt}
+{com}. 
+. cd "E:\FCEA\7° Semestre\Bases de Datos y Paquetes\Trabajo Final\Para Entregar" 
+{res}E:\FCEA\7° Semestre\Bases de Datos y Paquetes\Trabajo Final\Para Entregar
+{txt}
+{com}. 
+. *Modificacion de formato de ciertas variables previa a la fusion:
+. use "Base Externa Informante primera ronda.dta", clear
+{txt}(Written by R.              )
+
+{com}. destring numero, replace force
+{txt}numero already numeric; no {res}replace
+{txt}
+{com}. destring FORMULARIO, replace force
+{txt}FORMULARIO already numeric; no {res}replace
+{txt}
+{com}. save "Base Externa Informante primera ronda 2 2.dta", replace
+{txt}file Base Externa Informante primera ronda 2 2.dta saved
+
+{com}. 
+. use "Base ASQ-3_ola 2.dta", clear
+{txt}(Written by R.              )
+
+{com}. destring numero, replace force
+{txt}numero already numeric; no {res}replace
+{txt}
+{com}. rename nper_informante Nper_Entrev
+{res}{err}variable {bf}nper_informante{sf} not found
+{txt}{search r(111):r(111);}
+
+end of do-file
+
+{search r(111):r(111);}
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. use "ECH_2012_fusionada.dta", clear
+{txt}
+{com}. destring numero, replace force
+{txt}numero already numeric; no {res}replace
+{txt}
+{com}. drop _merge
+{err}variable {bf}_merge{sf} not found
+{txt}{search r(111):r(111);}
+
+end of do-file
+
+{search r(111):r(111);}
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. use "Base Externa Niños primera ronda.dta", clear
+{txt}(Written by R.              )
+
+{com}. destring numero, replace force
+{txt}numero contains nonnumeric characters; numero {res}replaced {txt}as {res}long
+{txt}
+{com}. merge m:1 IDENTIFICACION using "Base Externa Informante primera ronda 2.dta", keep(match)
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}               0
+{txt}{col 5}matched{col 30}{res}           3,077{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. drop _merge 
+{txt}
+{com}. 
+. merge m:1 numero FORMULARIO PERSONA using "Base ASQ-3_ola 2 2.dta"
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}             922
+{txt}{col 9}from master{col 30}{res}             694{txt}  (_merge==1)
+{col 9}from using{col 30}{res}             228{txt}  (_merge==2)
+
+{col 5}matched{col 30}{res}           2,383{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. drop if _merge == 2
+{txt}(228 observations deleted)
+
+{com}. rename Nper_Entrev nper
+{res}{txt}
+{com}. drop _merge
+{txt}
+{com}. 
+. merge m:1 numero nper using "ECH_2012_fusionada 2.dta", update
+{res}{err}{p 0 4 2}
+file ECH_2012_fusionada 2.dta
+not found
+{p_end}
+{txt}{search r(601):r(601);}
+
+end of do-file
+
+{search r(601):r(601);}
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. use "ECH_2012_fusionada.dta", clear
+{txt}
+{com}. destring numero, replace force
+{txt}numero already numeric; no {res}replace
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. drop _merge
+{err}variable {bf}_merge{sf} not found
+{txt}{search r(111):r(111);}
+
+end of do-file
+
+{search r(111):r(111);}
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. save "ECH_2012_fusionada 2.dta", replace
+{txt}(note: file ECH_2012_fusionada 2.dta not found)
+file ECH_2012_fusionada 2.dta saved
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. use "fusionado_2013_terceros.dta", clear
+{txt}
+{com}. destring numero, replace force
+{txt}numero already numeric; no {res}replace
+{txt}
+{com}. save "fusionado_2013_terceros 2.dta", replace
+{txt}(note: file fusionado_2013_terceros 2.dta not found)
+file fusionado_2013_terceros 2.dta saved
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. use "vector_educacion.dta", clear
+{txt}
+{com}. destring numero, replace force
+{txt}numero already numeric; no {res}replace
+{txt}
+{com}. save "vector_educacion 2.dta", replace
+{txt}(note: file vector_educacion 2.dta not found)
+file vector_educacion 2.dta saved
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\Lucas\AppData\Local\Temp\STD02000000.tmp"
+{txt}
+{com}. *Comienzo de la fusion:
+. use "Base Externa Niños primera ronda.dta", clear
+{txt}(Written by R.              )
+
+{com}. destring numero, replace force
+{txt}numero contains nonnumeric characters; numero {res}replaced {txt}as {res}long
+{txt}
+{com}. merge m:1 IDENTIFICACION using "Base Externa Informante primera ronda 2.dta", keep(match)
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}               0
+{txt}{col 5}matched{col 30}{res}           3,077{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. drop _merge 
+{txt}
+{com}. 
+. merge m:1 numero FORMULARIO PERSONA using "Base ASQ-3_ola 2 2.dta"
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}             922
+{txt}{col 9}from master{col 30}{res}             694{txt}  (_merge==1)
+{col 9}from using{col 30}{res}             228{txt}  (_merge==2)
+
+{col 5}matched{col 30}{res}           2,383{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. drop if _merge == 2
+{txt}(228 observations deleted)
+
+{com}. rename Nper_Entrev nper
+{res}{txt}
+{com}. drop _merge
+{txt}
+{com}. 
+. merge m:1 numero nper using "ECH_2012_fusionada 2.dta", update
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}         121,238
+{txt}{col 9}from master{col 30}{res}           1,846{txt}  (_merge==1)
+{col 9}from using{col 30}{res}         119,392{txt}  (_merge==2)
+
+{col 5}matched{col 30}{res}           1,231
+{txt}{col 9}not updated{col 30}{res}           1,231{txt}  (_merge==3)
+{col 9}missing updated{col 30}{res}               0{txt}  (_merge==4)
+{col 9}nonmissing conflict{col 30}{res}               0{txt}  (_merge==5)
+{col 5}{hline 41}
+
+{com}. drop if _merge ==2
+{txt}(119,392 observations deleted)
+
+{com}. drop _merge
+{txt}
+{com}. 
+. merge m:1 numero nper using "fusionado_2013_terceros 2.dta", update
+{res}{txt}{p 0 7 2}
+(note: variable
+g126_3 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g126_4 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g128_1 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g134_5 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g139_1 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g141_2 was 
+byte, now int to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g144_1 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g144_2_1 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+g148_2_3 was 
+int, now long to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+pt1 was 
+long, now double to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+pt2 was 
+long, now double to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+pt4 was 
+long, now double to accommodate using data's values)
+{p_end}
+
+{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}         127,599
+{txt}{col 9}from master{col 30}{res}           1,275{txt}  (_merge==1)
+{col 9}from using{col 30}{res}         126,324{txt}  (_merge==2)
+
+{col 5}matched{col 30}{res}           1,802
+{txt}{col 9}not updated{col 30}{res}               0{txt}  (_merge==3)
+{col 9}missing updated{col 30}{res}           1,802{txt}  (_merge==4)
+{col 9}nonmissing conflict{col 30}{res}               0{txt}  (_merge==5)
+{col 5}{hline 41}
+
+{com}. drop if _merge == 2
+{txt}(126,324 observations deleted)
+
+{com}. drop _merge
+{txt}
+{com}. 
+. merge m:1 numero nper using "vector_educacion 2.dta"
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}         245,760
+{txt}{col 9}from master{col 30}{res}              44{txt}  (_merge==1)
+{col 9}from using{col 30}{res}         245,716{txt}  (_merge==2)
+
+{col 5}matched{col 30}{res}           3,033{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. drop if _merge == 2
+{txt}(245,716 observations deleted)
+
+{com}. drop _merge
+{txt}
+{com}. 
+. *Se pide 1: 
+. 
+. *Dummy Madre con niño/a entre 0 y 4 años
+. gen madre04 = .
+{txt}(3,077 missing values generated)
+
+{com}. replace madre04 = 1 if RS0 == 1 | RS0 == 2
+{txt}(2,961 real changes made)
+
+{com}. replace madre04 = 0 if RS0 == 3 | RS0 == 9 
+{txt}(74 real changes made)
+
+{com}. 
+. label variable madre04 "Quien contesta es Madre con algun/a niño/a entre 0 y 4 años"
+{txt}
+{com}. label define madre04 1 "Si" 0 "No", replace
+{txt}
+{com}. label values madre04 madre04
+{txt}
+{com}. 
+. *Variable categorica Edad:
+. gen cat_edad = .
+{txt}(3,077 missing values generated)
+
+{com}. replace cat_edad = 1 if e27>0 & e27<=14
+{txt}(3 real changes made)
+
+{com}. replace cat_edad = 2 if e27>14 & e27<=19
+{txt}(278 real changes made)
+
+{com}. replace cat_edad = 3 if e27>19 & e27<=24
+{txt}(630 real changes made)
+
+{com}. replace cat_edad = 4 if e27>24 & e27<35
+{txt}(1,379 real changes made)
+
+{com}. replace cat_edad = 5 if e27>=35 & e27<100
+{txt}(743 real changes made)
+
+{com}. 
+. label variable cat_edad "Tramos de edad"
+{txt}
+{com}. label define cat_edad 1 "Menor de 14" 2 "Entre 14 y 19" 3 "Entre 20 y 24" 4 "Entre 25 y 34" 5 "Mas de 34", replace
+{txt}
+{com}. label values cat_edad cat_edad
+{txt}
+{com}. 
+. *Dummy Interior/Montevideo
+. gen montevideo = .
+{txt}(3,077 missing values generated)
+
+{com}. replace montevideo = 1 if dpto==1 
+{txt}(1,140 real changes made)
+
+{com}. replace montevideo = 0 if dpto>1 & dpto<=19
+{txt}(1,893 real changes made)
+
+{com}. 
+. label variable montevideo "Residencia"
+{txt}
+{com}. label define montevideo 1 "Vive en Montevideo" 0 "Vive en el Interior", replace
+{txt}
+{com}. label values montevideo montevideo
+{txt}
+{com}. 
+. *Variable categorica educacion
+. gen cat_edu = .
+{txt}(3,077 missing values generated)
+
+{com}. replace cat_edu = 0 if bc_edu<9
+{txt}(1,347 real changes made)
+
+{com}. replace cat_edu = 1 if bc_edu>=9 & bc_edu<=12
+{txt}(1,040 real changes made)
+
+{com}. replace cat_edu = 2 if bc_edu>12 & bc_edu<50
+{txt}(646 real changes made)
+
+{com}. 
+. label variable cat_edu "Años de Educacion"
+{txt}
+{com}. label define cat_edu 0 "Menos de 9" 1 "Entre 9 y 12" 2 "Mas de 12", replace
+{txt}
+{com}. label values cat_edu cat_edu
+{txt}
+{com}. 
+. *Variable categorica Estado Civil:
+. replace e35 = 7 if e35==1
+{txt}(916 real changes made)
+
+{com}. replace e35 = 8 if e35==2
+{txt}(1,423 real changes made)
+
+{com}. replace e35 = 9 if e35==3
+{txt}(2 real changes made)
+
+{com}. label define e35 7 "Casamiento Civil" 8 "Union libre con pareja de otro sexo" 9 "Union libre con pareja del mismo sexo", replace
+{txt}
+{com}. label values e35 e35
+{txt}
+{com}. gen est_civil = .
+{txt}(3,077 missing values generated)
+
+{com}. replace est_civil = e35 if e36==0
+{txt}(2,344 real changes made)
+
+{com}. replace est_civil = e36 if e35==0
+{txt}(689 real changes made)
+
+{com}. label variable est_civil "Estado Civil"
+{txt}
+{com}. label define est_civil 1 "Separado/a de unión libre anterior" 2 "Divorciado/a" 3 "Casado/a (incluye separado/a y aún no se divorció" 4 "Viudo/a de casamiento" 5 "Soltero" 6 "Viudo/a de union libre" 7 "Casamiento Civil" 8 "Union libre con pareja de otro sexo" 9 "Union libre con pareja del mismo sexo", replace
+{txt}
+{com}. label values est_civil est_civil
+{txt}
+{com}. 
+. tabout cat_edad montevideo cat_edu madre04 using tabla1.txt, c(freq col) replace 
+{res}
+{txt}Table output written to: tabla1.txt
+
+{res}        Quien contesta es Madre con algun/a niño/a entre 0 y 4 años                                   
+        No      No      Si      Si      Total   Total
+        No.     %       No.     %       No.     %
+Tramos de edad                                          
+Menor de 14     0.0     0.0     3.0     0.1     3.0     0.1
+Entre 14 y 19   0.0     0.0     275.0   9.4     275.0   9.2
+Entre 20 y 24   7.0     10.1    616.0   21.0    623.0   20.8
+Entre 25 y 34   22.0    31.9    1,350.0 46.1    1,372.0 45.8
+Mas de 34       40.0    58.0    684.0   23.4    724.0   24.2
+Total   69.0    100.0   2,928.0 100.0   2,997.0 100.0
+
+Residencia                                              
+Vive en el Interior     53.0    76.8    1,819.0 62.1    1,872.0 62.5
+Vive en Montevideo      16.0    23.2    1,109.0 37.9    1,125.0 37.5
+Total   69.0    100.0   2,928.0 100.0   2,997.0 100.0
+
+Años de Educacion                                              
+Menos de 9      35.0    50.7    1,292.0 44.1    1,327.0 44.3
+Entre 9 y 12    23.0    33.3    1,005.0 34.3    1,028.0 34.3
+Mas de 12       11.0    15.9    631.0   21.6    642.0   21.4
+Total   69.0    100.0   2,928.0 100.0   2,997.0 100.0
+{txt}
+{com}. sum e27 if madre04==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 9}e27 {c |}{res}      2,928    28.90642    6.971178          1         60
+{txt}
+{com}. sum bc_edu if madre04==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}bc_edu {c |}{res}      2,928     9.89959    3.825922          0         22
+{txt}
+{com}. 
+. *Se pide 2:
+. 
+.  sum CF3A CF3B CF3C CF3D CF3E CF3F CF3G CF3H CF3I CF3J CF3K
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}CF3A {c |}{res}      3,003    64.52015    33.62254          1        129
+{txt}{space 8}CF3B {c |}{res}      1,796     42.9716    25.97723          1        102
+{txt}{space 8}CF3C {c |}{res}         15    4.133333    2.263583          1          7
+{txt}{space 8}CF3D {c |}{res}         38    10.76316    6.695841          1         21
+{txt}{space 8}CF3E {c |}{res}          8       3.125    1.807722          1          6
+{txt}{hline 13}{c +}{hline 57}
+{space 8}CF3F {c |}{res}        290    16.86897    13.24366          1         43
+{txt}{space 8}CF3G {c |}{res}         55    9.218182    4.863663          1         18
+{txt}{space 8}CF3H {c |}{res}      1,173    29.20375    22.40571          1         77
+{txt}{space 8}CF3I {c |}{res}        373    16.92225     13.6845          1         47
+{txt}{space 8}CF3J {c |}{res}         60    10.51667    8.091619          1         25
+{txt}{hline 13}{c +}{hline 57}
+{space 8}CF3K {c |}{res}        346    20.99422    9.377121          1         42
+{txt}
+{com}.  tab IH2
+
+        {txt}IH2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+        Si  {c |}{res}      1,163       85.08       85.08
+{txt}        No  {c |}{res}        204       14.92      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      1,367      100.00
+{txt}
+{com}.  tab IH3
+
+                  {txt}IH3 {c |}      Freq.     Percent        Cum.
+{hline 22}{c +}{hline 35}
+             P�blico  {c |}{res}        348       29.92       29.92
+{txt}      P�blico, INAU   {c |}{res}        105        9.03       38.95
+{txt} P�blico, Municipal   {c |}{res}         37        3.18       42.13
+{txt}      P�blico, ANEP   {c |}{res}          5        0.43       42.56
+{txt}       P�blico, Otro  {c |}{res}        199       17.11       59.67
+{txt}             Privado  {c |}{res}        469       40.33      100.00
+{txt}{hline 22}{c +}{hline 35}
+                Total {c |}{res}      1,163      100.00
+{txt}
+{com}.  
+. *Se pide 3:
+. 
+. gen madre_ocupada= .
+{txt}(3,077 missing values generated)
+
+{com}. replace madre_ocupada=1 if TE5==1 & madre04==1
+{txt}(1,706 real changes made)
+
+{com}. replace madre_ocupada=0 if TE5>1 & TE5<=2 & madre04==1
+{txt}(1,233 real changes made)
+
+{com}. label variable madre_ocupada "Trabajando antes del embarazo"
+{txt}
+{com}. label define madre_ocupada 0 "No" 1 "Si"
+{txt}
+{com}. label value madre_ocupada madre_ocupada
+{txt}
+{com}. 
+. gen madre_interru=.
+{txt}(3,077 missing values generated)
+
+{com}. replace madre_interru=1 if TE8==1 & madre04==1
+{txt}(564 real changes made)
+
+{com}. replace madre_interru=0 if TE8==2 & madre04==1
+{txt}(994 real changes made)
+
+{com}. label variable madre_interru "Interrupción del trabajo durante el embarazo/nacimiento del niño/a"
+{txt}
+{com}. label define madre_interru 0 "No" 1 "Si"
+{txt}
+{com}. label value madre_interru madre_interru
+{txt}
+{com}. 
+. gen madre_vol=.
+{txt}(3,077 missing values generated)
+
+{com}. replace madre_vol=1 if TE9==1 & madre04==1
+{txt}(990 real changes made)
+
+{com}. replace madre_vol=0 if TE9==2 & madre04==1
+{txt}(559 real changes made)
+
+{com}. label variable madre_vol "Retoma empleo luego de 6 meses de nacimiento del niño/a"
+{txt}
+{com}. label define madre_vol 0 "No" 1 "Si"
+{txt}
+{com}. label value madre_vol madre_vol
+{txt}
+{com}. 
+. tabout madre_ocupada madre_interru madre_vol cat_edu using tabla2.txt, c(freq col) replace
+{res}
+{txt}Table output written to: tabla2.txt
+
+{res}        Años de Educacion                                                      
+        Menos de 9      Menos de 9      Entre 9 y 12    Entre 9 y 12    Mas de 12       Mas de 12       Total   Total
+        No.     %       No.     %       No.     %       No.     %
+Trabajando antes del embarazo                                                           
+No      700.0   54.7    414.0   41.5    97.0    15.4    1,211.0 41.7
+Si      580.0   45.3    583.0   58.5    532.0   84.6    1,695.0 58.3
+Total   1,280.0 100.0   997.0   100.0   629.0   100.0   2,906.0 100.0
+
+Interrupción del trabajo durante el embarazo/nacimiento del niño/a                                                            
+No      262.0   52.7    342.0   63.9    383.0   74.4    987.0   63.8
+Si      235.0   47.3    193.0   36.1    132.0   25.6    560.0   36.2
+Total   497.0   100.0   535.0   100.0   515.0   100.0   1,547.0 100.0
+
+Retoma empleo luego de 6 meses de nacimiento del niño/a                                                                
+No      232.0   46.7    195.0   36.5    126.0   24.9    553.0   36.0
+Si      265.0   53.3    339.0   63.5    381.0   75.1    985.0   64.0
+Total   497.0   100.0   534.0   100.0   507.0   100.0   1,538.0 100.0
+{txt}
+{com}. 
+. *Se pide 4:
+. 
+. *A
+. gen ocupad=.
+{txt}(3,077 missing values generated)
+
+{com}. replace ocupad=1 if pobpcoac==2
+{txt}(1,668 real changes made)
+
+{com}. replace ocupad=0 if pobpcoac==3 | pobpcoac==4 | pobpcoac==5 
+{txt}(235 real changes made)
+
+{com}. tabulate ocupad madre04, freq col
+{txt}
+{c TLC}{hline 19}{c TRC}
+{c |} Key{col 21}{c |}
+{c LT}{hline 19}{c RT}
+{c |}{space 5}{it:frequency}{col 21}{c |}
+{c |}{space 1}{it:column percentage}{col 21}{c |}
+{c BLC}{hline 19}{c BRC}
+
+           {c |}   Quien contesta es
+           {c |}   Madre con algun/a
+           {c |}  niño/a entre 0 y 4
+           {c |}         años
+    ocupad {c |}        No         Si {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         4        231 {txt}{c |}{res}       235 
+           {txt}{c |}{res}      7.02      12.64 {txt}{c |}{res}     12.47 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+         1 {c |}{res}        53      1,596 {txt}{c |}{res}     1,649 
+           {txt}{c |}{res}     92.98      87.36 {txt}{c |}{res}     87.53 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        57      1,827 {txt}{c |}{res}     1,884 
+           {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+
+{txt}
+{com}. 
+. *B Tabla IPC para 2018. Fuente:INE
+. g ipc=.
+{txt}(3,077 missing values generated)
+
+{com}. replace ipc=    177.55  if mes==01
+{txt}(193 real changes made)
+
+{com}. replace ipc=    179.11  if mes==02 
+{txt}(296 real changes made)
+
+{com}. replace ipc=    179.61  if mes==03
+{txt}(295 real changes made)
+
+{com}. replace ipc=    179.73  if mes==04
+{txt}(288 real changes made)
+
+{com}. replace ipc=    181.19  if mes==05
+{txt}(315 real changes made)
+
+{com}. replace ipc=    182.98  if mes==06
+{txt}(289 real changes made)
+
+{com}. replace ipc=    184.07  if mes==07
+{txt}(334 real changes made)
+
+{com}. replace ipc=    185.31  if mes==08
+{txt}(310 real changes made)
+
+{com}. replace ipc=    186.23  if mes==09
+{txt}(298 real changes made)
+
+{com}. replace ipc=    186.66  if mes==10
+{txt}(153 real changes made)
+
+{com}. replace ipc=    187.34  if mes==11
+{txt}(135 real changes made)
+
+{com}. replace ipc=    186.62  if mes==12
+{txt}(127 real changes made)
+
+{com}. 
+. gen ing_def_perk = ysvl/TOT /*TOT cantidad de personas en el hogar*/
+{txt}(72 missing values generated)
+
+{com}. replace ing_def_perk = (ing_def_perk/ipc)*100
+{txt}(3,005 real changes made)
+
+{com}. sum ing_def_perk 
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+ing_def_perk {c |}{res}      3,005    5072.448    4411.584   222.3841   67883.88
+{txt}
+{com}. hist ing_def_perk if ing_def_perk<40000, xtitle("Ingreso Per Capita del hogar(Deflactado)") bcolor(blue)
+{txt}(bin={res}34{txt}, start={res}222.38414{txt}, width={res}1112.8237{txt})
+{res}{txt}
+{com}. 
+. *C
+. gen hs_trab=.
+{txt}(3,077 missing values generated)
+
+{com}. replace hs_trab = TL8 if madre04==1
+{txt}(1,834 real changes made)
+
+{com}. sum hs_trab 
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}hs_trab {c |}{res}      1,834    31.34133    15.45979          1         72
+{txt}
+{com}. hist hs_trab, xtitle("Horas trabajadas de la madre") bcolor(blue)
+{txt}(bin={res}32{txt}, start={res}1{txt}, width={res}2.21875{txt})
+{res}{txt}
+{com}. 
+. *D
+. gen ing_madre= (g126_1+ g126_2 +g126_3+ g126_4+ g126_5+ g126_6+ g126_7+ g126_8)
+{txt}(44 missing values generated)
+
+{com}. gen ing_def_madre= (ing_madre / ipc) *100
+{txt}(44 missing values generated)
+
+{com}. replace ing_def_madre = . if ing_def_madre == 0 & TL5>0 & TL5<10 
+{txt}(779 real changes made, 779 to missing)
+
+{com}. sum ing_def_madre if madre04==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+ing_def_ma~e {c |}{res}      2,169    4215.927    5750.763          0   58420.96
+{txt}
+{com}. 
+. *Se pide 5: se guarda la base generada hasta ahora, para importar en R:
+. 
+. save "base para R", replace
+{txt}file base para R.dta saved
+
+{com}. 
+. *Se pide 7:
+. 
+. gen int_emp_mat_6 = . /* Variable categorica sobre intensidad del empleo materno*/ 
+{txt}(3,077 missing values generated)
+
+{com}. replace int_emp_mat_6 = 0 if TE9A>0 & TE9A<=20 
+{txt}(441 real changes made)
+
+{com}. replace int_emp_mat_6 = 1 if TE9A>20 & TE9A<100
+{txt}(579 real changes made)
+
+{com}. 
+. label variable int_emp_mat_6 "Intensidad del empleo materno en los primeros 6 meses al nacimiento"
+{txt}
+{com}. label define int_emp_mat_6 0 "Jornada a tiempo parcial" 1 "Jornada a tiempo completo" 
+{txt}
+{com}. label values int_emp_mat_6 int_emp_mat_6
+{txt}
+{com}. 
+. gen edad_madre = . /*Edad de la madre extraida de la ECH*/ 
+{txt}(3,077 missing values generated)
+
+{com}. replace edad_madre = e27 if madre04 == 1 
+{txt}(2,928 real changes made)
+
+{com}. 
+. replace IH2 = 0 if IH2 == 2/*Modificacion de la variable dicotomica de asistencia a centro educativo*/
+{txt}(204 real changes made)
+
+{com}. 
+. *Se generaron variables dicotomicas de los indicadores de desarrollo para poder establecer correlaciones con sentido
+. 
+. gen ASQ3_CO = ./*Creacion de variable dicotomica para indicadores de desarrollo*/
+{txt}(3,077 missing values generated)
+
+{com}. replace ASQ3_CO = 1 if ASQ3_C == 3
+{txt}(1,964 real changes made)
+
+{com}. replace ASQ3_CO = 0 if ASQ3_C == 2 | ASQ3_C == 1
+{txt}(164 real changes made)
+
+{com}. 
+. gen ASQ3_MGR = ./*Creacion de variable dicotomica para indicadores de desarrollo*/
+{txt}(3,077 missing values generated)
+
+{com}. replace ASQ3_MGR = 1 if ASQ3_MG == 3
+{txt}(2,030 real changes made)
+
+{com}. replace ASQ3_MGR = 0 if ASQ3_MG == 2 | ASQ3_MG == 1
+{txt}(121 real changes made)
+
+{com}. 
+. gen ASQ3_MFI = ./*Creacion de variable dicotomica para indicadores de desarrollo*/
+{txt}(3,077 missing values generated)
+
+{com}. replace ASQ3_MFI = 1 if ASQ3_MF == 3
+{txt}(1,203 real changes made)
+
+{com}. replace ASQ3_MFI = 0 if ASQ3_MF == 2 | ASQ3_MF == 1
+{txt}(287 real changes made)
+
+{com}. 
+. gen ASQ3_RE = ./*Creacion de variable dicotomica para indicadores de desarrollo*/
+{txt}(3,077 missing values generated)
+
+{com}. replace ASQ3_RE = 1 if ASQ3_R == 3
+{txt}(1,744 real changes made)
+
+{com}. replace ASQ3_RE = 0 if ASQ3_R == 2 | ASQ3_R == 1
+{txt}(407 real changes made)
+
+{com}. 
+. gen ASQ3_SO = ./*Creacion de variable dicotomica para indicadores de desarrollo*/
+{txt}(3,077 missing values generated)
+
+{com}. replace ASQ3_SO = 1 if ASQ3_S == 3
+{txt}(1,961 real changes made)
+
+{com}. replace ASQ3_SO = 0 if ASQ3_S == 2 | ASQ3_S == 1
+{txt}(190 real changes made)
+
+{com}. 
+. gen calidad_cuid = ./*Creacion de variable dicotomica como indocador de calidad de cuidado*/
+{txt}(3,077 missing values generated)
+
+{com}. replace calidad_cuid = 0 if PC2==2 & PC3==2
+{txt}(81 real changes made)
+
+{com}. replace calidad_cuid = 1 if PC2==1 | PC3==1
+{txt}(2,990 real changes made)
+
+{com}. label variable calidad_cuid "Calidad del cuidado"
+{txt}
+{com}. label define calidad_cuid 0 "Baja" 1 "Alta"
+{txt}
+{com}. label values calidad_cuid calidad_cuid
+{txt}
+{com}. 
+. gen ing_hogar = .
+{txt}(3,077 missing values generated)
+
+{com}. replace ing_hogar = ysvl if madre04==1
+{txt}(2,928 real changes made)
+
+{com}. 
+. *Variables dicotomicas sobre educacion de la madre, para modelar.
+. gen edu_baja = .
+{txt}(3,077 missing values generated)
+
+{com}. replace edu_baja = 1 if cat_edu == 0
+{txt}(1,347 real changes made)
+
+{com}. replace edu_baja = 0 if cat_edu==1|cat_edu==2
+{txt}(1,686 real changes made)
+
+{com}. 
+. gen edu_media = .
+{txt}(3,077 missing values generated)
+
+{com}. replace edu_media = 1 if cat_edu == 1
+{txt}(1,040 real changes made)
+
+{com}. replace edu_media = 0 if cat_edu==0|cat_edu==2
+{txt}(1,993 real changes made)
+
+{com}. 
+. gen edu_alta = .
+{txt}(3,077 missing values generated)
+
+{com}. replace edu_alta = 1 if cat_edu == 2
+{txt}(646 real changes made)
+
+{com}. replace edu_alta = 0 if cat_edu==0|cat_edu==1
+{txt}(2,387 real changes made)
+
+{com}. 
+. pwcorr int_emp_mat_6 edad_madre montevideo TOT ing_hogar calidad_cuid IH2 edu_baja edu_media edu_alta ASQ3_CO ASQ3_MGR ASQ3_MFI ASQ3_RE ASQ3_SO, star(.05)
+
+             {txt}{c |} int_em~6 edad_m~e montev~o      TOT ing_ho~r calida~d      IH2
+{hline 13}{c +}{hline 63}
+int_emp_ma~6 {c |} {res}  1.0000 
+  {txt}edad_madre {c |} {res} -0.0188   1.0000 
+  {txt}montevideo {c |} {res} -0.0404   0.0590*  1.0000 
+         {txt}TOT {c |} {res}  0.1133* -0.0616* -0.0635*  1.0000 
+   {txt}ing_hogar {c |} {res} -0.0183   0.2603*  0.1115* -0.0136   1.0000 
+{txt}calidad_cuid {c |} {res} -0.0472   0.0403*  0.0241  -0.0876*  0.0127   1.0000 
+         {txt}IH2 {c |} {res} -0.0535   0.1661*  0.0512  -0.0946*  0.1371*  0.0409   1.0000 
+    {txt}edu_baja {c |} {res}  0.0886* -0.2043* -0.0853*  0.2327* -0.2987* -0.0706* -0.1519*
+   {txt}edu_media {c |} {res}  0.1359* -0.0592* -0.0257  -0.0291  -0.0753*  0.0180   0.0122 
+    {txt}edu_alta {c |} {res} -0.2130*  0.3151*  0.1333* -0.2487*  0.4477*  0.0648*  0.1580*
+     {txt}ASQ3_CO {c |} {res} -0.0074   0.0268  -0.0146  -0.1071*  0.0773*  0.0831*  0.0682*
+    {txt}ASQ3_MGR {c |} {res}  0.0106  -0.0247   0.0089  -0.0386   0.0380   0.0371  -0.0098 
+    {txt}ASQ3_MFI {c |} {res} -0.0232   0.0344   0.0040  -0.0797*  0.0980*  0.0052   0.0524 
+     {txt}ASQ3_RE {c |} {res} -0.0546   0.0525* -0.0155  -0.1314*  0.1364*  0.0420   0.1494*
+     {txt}ASQ3_SO {c |} {res} -0.0292  -0.0221  -0.0073  -0.0589*  0.0237  -0.0089   0.0244 
+
+             {txt}{c |} edu_baja edu_me~a edu_alta  ASQ3_CO ASQ3_MGR ASQ3_MFI  ASQ3_RE
+{hline 13}{c +}{hline 63}
+    edu_baja {c |} {res}  1.0000 
+   {txt}edu_media {c |} {res} -0.6457*  1.0000 
+    {txt}edu_alta {c |} {res} -0.4650* -0.3758*  1.0000 
+     {txt}ASQ3_CO {c |} {res} -0.1110*  0.0267   0.1024*  1.0000 
+    {txt}ASQ3_MGR {c |} {res} -0.0253  -0.0094   0.0411   0.2226*  1.0000 
+    {txt}ASQ3_MFI {c |} {res} -0.1619*  0.0561*  0.1288*  0.2537*  0.2093*  1.0000 
+     {txt}ASQ3_RE {c |} {res} -0.1840*  0.0459*  0.1682*  0.3068*  0.1499*  0.3491*  1.0000 
+     {txt}ASQ3_SO {c |} {res} -0.0423   0.0021   0.0484*  0.3348*  0.2226*  0.2858*  0.2595*
+
+             {txt}{c |}  ASQ3_SO
+{hline 13}{c +}{hline 9}
+     ASQ3_SO {c |} {res}  1.0000 
+{txt}
+{com}. 
+. *Se pide 8:
+. 
+. gen madre_ret_6 = .
+{txt}(3,077 missing values generated)
+
+{com}. replace madre_ret_6 = 1 if TE9==1 & madre04==1
+{txt}(990 real changes made)
+
+{com}. replace madre_ret_6 = 0 if TE9==2 & madre04==1
+{txt}(559 real changes made)
+
+{com}. label variable madre_ret_6 "Madre trabajo dentro de los 6 meses luego del nacimiento del hijo/a"
+{txt}
+{com}. label define madre_ret_6 1 "Si" 0 "No"
+{txt}
+{com}. label values madre_ret_6 madre_ret_6
+{txt}
+{com}. 
+. *Modelo para ver efecto del momento en que la madre retorna a la activ. laboral en el desarrollo infantil:
+. probit ASQ3_RE madre_ret_6 edad_madre montevideo TOT calidad_cuid ing_hogar edu_baja edu_alta IH2, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-230.52674}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-205.52274}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-204.10208}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-204.09171}  
+Iteration 4:{space 3}log pseudolikelihood = {res:-204.09171}  
+{res}
+{txt}Probit regression{col 49}Number of obs{col 67}= {res}       533
+{txt}{col 49}Wald chi2({res}9{txt}){col 67}= {res}     41.40
+{txt}{col 49}Prob > chi2{col 67}= {res}    0.0000
+{txt}Log pseudolikelihood = {res}-204.09171{txt}{col 49}Pseudo R2{col 67}= {res}    0.1147
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}     ASQ3_RE{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 1}madre_ret_6 {c |}{col 14}{res}{space 2} .2762832{col 26}{space 2} .1394295{col 37}{space 1}    1.98{col 46}{space 3}0.048{col 54}{space 4} .0030064{col 67}{space 3}   .54956
+{txt}{space 2}edad_madre {c |}{col 14}{res}{space 2}-.0089436{col 26}{space 2} .0123655{col 37}{space 1}   -0.72{col 46}{space 3}0.470{col 54}{space 4}-.0331796{col 67}{space 3} .0152924
+{txt}{space 2}montevideo {c |}{col 14}{res}{space 2}-.1191598{col 26}{space 2} .1422578{col 37}{space 1}   -0.84{col 46}{space 3}0.402{col 54}{space 4}  -.39798{col 67}{space 3} .1596603
+{txt}{space 9}TOT {c |}{col 14}{res}{space 2}-.0508505{col 26}{space 2} .0363825{col 37}{space 1}   -1.40{col 46}{space 3}0.162{col 54}{space 4}-.1221588{col 67}{space 3} .0204578
+{txt}calidad_cuid {c |}{col 14}{res}{space 2}-.3130447{col 26}{space 2} .6936149{col 37}{space 1}   -0.45{col 46}{space 3}0.652{col 54}{space 4}-1.672505{col 67}{space 3} 1.046415
+{txt}{space 3}ing_hogar {c |}{col 14}{res}{space 2} 9.42e-06{col 26}{space 2} 3.93e-06{col 37}{space 1}    2.39{col 46}{space 3}0.017{col 54}{space 4} 1.71e-06{col 67}{space 3} .0000171
+{txt}{space 4}edu_baja {c |}{col 14}{res}{space 2}-.4339714{col 26}{space 2} .1615107{col 37}{space 1}   -2.69{col 46}{space 3}0.007{col 54}{space 4}-.7505265{col 67}{space 3}-.1174163
+{txt}{space 4}edu_alta {c |}{col 14}{res}{space 2}  .221286{col 26}{space 2} .2132683{col 37}{space 1}    1.04{col 46}{space 3}0.299{col 54}{space 4}-.1967121{col 67}{space 3} .6392842
+{txt}{space 9}IH2 {c |}{col 14}{res}{space 2} .3165346{col 26}{space 2} .1885222{col 37}{space 1}    1.68{col 46}{space 3}0.093{col 54}{space 4} -.052962{col 67}{space 3} .6860313
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.158524{col 26}{space 2} .8402144{col 37}{space 1}    1.38{col 46}{space 3}0.168{col 54}{space 4}-.4882661{col 67}{space 3} 2.805314
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. estimates store probit
+{txt}
+{com}. matrix coef_probit =e(b)
+{txt}
+{com}. margins, dydx(*)
+{res}
+{txt}Average marginal effects{col 49}Number of obs{col 67}= {res}       533
+{txt}Model VCE{col 14}: {res}Robust
+
+{txt}{p2colset 1 14 16 2}{...}
+{p2col:Expression}:{space 1}{res:Pr(ASQ3_RE), predict()}{p_end}
+{p2colreset}{...}
+{txt}{p2colset 1 14 16 2}{...}
+{p2col:dy/dx w.r.t.}:{space 1}{res:madre_ret_6 edad_madre montevideo TOT calidad_cuid ing_hogar edu_baja edu_alta IH2}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 1}madre_ret_6 {c |}{col 14}{res}{space 2} .0587608{col 26}{space 2} .0293389{col 37}{space 1}    2.00{col 46}{space 3}0.045{col 54}{space 4} .0012576{col 67}{space 3} .1162641
+{txt}{space 2}edad_madre {c |}{col 14}{res}{space 2}-.0019022{col 26}{space 2} .0026266{col 37}{space 1}   -0.72{col 46}{space 3}0.469{col 54}{space 4}-.0070503{col 67}{space 3}  .003246
+{txt}{space 2}montevideo {c |}{col 14}{res}{space 2}-.0253433{col 26}{space 2} .0302392{col 37}{space 1}   -0.84{col 46}{space 3}0.402{col 54}{space 4} -.084611{col 67}{space 3} .0339243
+{txt}{space 9}TOT {c |}{col 14}{res}{space 2}-.0108151{col 26}{space 2} .0077277{col 37}{space 1}   -1.40{col 46}{space 3}0.162{col 54}{space 4} -.025961{col 67}{space 3} .0043309
+{txt}calidad_cuid {c |}{col 14}{res}{space 2}-.0665794{col 26}{space 2} .1470512{col 37}{space 1}   -0.45{col 46}{space 3}0.651{col 54}{space 4}-.3547944{col 67}{space 3} .2216356
+{txt}{space 3}ing_hogar {c |}{col 14}{res}{space 2} 2.00e-06{col 26}{space 2} 8.28e-07{col 37}{space 1}    2.42{col 46}{space 3}0.015{col 54}{space 4} 3.82e-07{col 67}{space 3} 3.63e-06
+{txt}{space 4}edu_baja {c |}{col 14}{res}{space 2}-.0922985{col 26}{space 2} .0336407{col 37}{space 1}   -2.74{col 46}{space 3}0.006{col 54}{space 4} -.158233{col 67}{space 3} -.026364
+{txt}{space 4}edu_alta {c |}{col 14}{res}{space 2} .0470639{col 26}{space 2} .0454041{col 37}{space 1}    1.04{col 46}{space 3}0.300{col 54}{space 4}-.0419266{col 67}{space 3} .1360543
+{txt}{space 9}IH2 {c |}{col 14}{res}{space 2} .0673217{col 26}{space 2} .0396009{col 37}{space 1}    1.70{col 46}{space 3}0.089{col 54}{space 4}-.0102948{col 67}{space 3} .1449381
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimates store margins_probit
+{txt}
+{com}. 
+. *Modelo para ver efecto de la intensidad del empleo materno en el desarrollo infantil.
+. probit ASQ3_RE int_emp_mat edad_madre montevideo TOT calidad_cuid ing_hogar edu_baja edu_alta IH2, robust
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-127.40249}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-117.10194}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-116.57651}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-116.57338}  
+Iteration 4:{space 3}log pseudolikelihood = {res:-116.57338}  
+{res}
+{txt}Probit regression{col 49}Number of obs{col 67}= {res}       358
+{txt}{col 49}Wald chi2({res}9{txt}){col 67}= {res}     19.10
+{txt}{col 49}Prob > chi2{col 67}= {res}    0.0243
+{txt}Log pseudolikelihood = {res}-116.57338{txt}{col 49}Pseudo R2{col 67}= {res}    0.0850
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 15}{c |}{col 27}    Robust
+{col 1}      ASQ3_RE{col 15}{c |}      Coef.{col 27}   Std. Err.{col 39}      z{col 47}   P>|z|{col 55}     [95% Con{col 68}f. Interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+int_emp_mat_6 {c |}{col 15}{res}{space 2}-.0603991{col 27}{space 2} .1905513{col 38}{space 1}   -0.32{col 47}{space 3}0.751{col 55}{space 4}-.4338727{col 68}{space 3} .3130745
+{txt}{space 3}edad_madre {c |}{col 15}{res}{space 2}-.0235584{col 27}{space 2} .0148261{col 38}{space 1}   -1.59{col 47}{space 3}0.112{col 55}{space 4} -.052617{col 68}{space 3} .0055002
+{txt}{space 3}montevideo {c |}{col 15}{res}{space 2}-.2175878{col 27}{space 2} .1803387{col 38}{space 1}   -1.21{col 47}{space 3}0.228{col 55}{space 4}-.5710451{col 68}{space 3} .1358694
+{txt}{space 10}TOT {c |}{col 15}{res}{space 2}-.0411902{col 27}{space 2} .0416187{col 38}{space 1}   -0.99{col 47}{space 3}0.322{col 55}{space 4}-.1227614{col 68}{space 3}  .040381
+{txt}{space 1}calidad_cuid {c |}{col 15}{res}{space 2}-.0937217{col 27}{space 2} .7572413{col 38}{space 1}   -0.12{col 47}{space 3}0.901{col 55}{space 4}-1.577888{col 68}{space 3} 1.390444
+{txt}{space 4}ing_hogar {c |}{col 15}{res}{space 2} 6.83e-06{col 27}{space 2} 4.11e-06{col 38}{space 1}    1.66{col 47}{space 3}0.097{col 55}{space 4}-1.23e-06{col 68}{space 3} .0000149
+{txt}{space 5}edu_baja {c |}{col 15}{res}{space 2}-.2910998{col 27}{space 2} .2194959{col 38}{space 1}   -1.33{col 47}{space 3}0.185{col 55}{space 4}-.7213039{col 68}{space 3} .1391043
+{txt}{space 5}edu_alta {c |}{col 15}{res}{space 2} .3297863{col 27}{space 2} .2489683{col 38}{space 1}    1.32{col 47}{space 3}0.185{col 55}{space 4}-.1581827{col 68}{space 3} .8177552
+{txt}{space 10}IH2 {c |}{col 15}{res}{space 2} .3902892{col 27}{space 2} .2565277{col 38}{space 1}    1.52{col 47}{space 3}0.128{col 55}{space 4}-.1124958{col 68}{space 3} .8930742
+{txt}{space 8}_cons {c |}{col 15}{res}{space 2} 1.680106{col 27}{space 2}  .929951{col 38}{space 1}    1.81{col 47}{space 3}0.071{col 55}{space 4}-.1425641{col 68}{space 3} 3.502777
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. estimates store probit
+{txt}
+{com}. matrix coef_probit =e(b)
+{txt}
+{com}. margins, dydx(*)
+{res}
+{txt}Average marginal effects{col 49}Number of obs{col 67}= {res}       358
+{txt}Model VCE{col 14}: {res}Robust
+
+{txt}{p2colset 1 14 16 2}{...}
+{p2col:Expression}:{space 1}{res:Pr(ASQ3_RE), predict()}{p_end}
+{p2colreset}{...}
+{txt}{p2colset 1 14 16 2}{...}
+{p2col:dy/dx w.r.t.}:{space 1}{res:int_emp_mat_6 edad_madre montevideo TOT calidad_cuid ing_hogar edu_baja edu_alta IH2}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 15}{c |}{col 27} Delta-method
+{col 15}{c |}      dy/dx{col 27}   Std. Err.{col 39}      z{col 47}   P>|z|{col 55}     [95% Con{col 68}f. Interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+int_emp_mat_6 {c |}{col 15}{res}{space 2}-.0107564{col 27}{space 2} .0338496{col 38}{space 1}   -0.32{col 47}{space 3}0.751{col 55}{space 4}-.0771004{col 68}{space 3} .0555877
+{txt}{space 3}edad_madre {c |}{col 15}{res}{space 2}-.0041955{col 27}{space 2} .0026175{col 38}{space 1}   -1.60{col 47}{space 3}0.109{col 55}{space 4}-.0093256{col 68}{space 3} .0009347
+{txt}{space 3}montevideo {c |}{col 15}{res}{space 2}-.0387498{col 27}{space 2} .0321019{col 38}{space 1}   -1.21{col 47}{space 3}0.227{col 55}{space 4}-.1016684{col 68}{space 3} .0241688
+{txt}{space 10}TOT {c |}{col 15}{res}{space 2}-.0073355{col 27}{space 2} .0074363{col 38}{space 1}   -0.99{col 47}{space 3}0.324{col 55}{space 4}-.0219104{col 68}{space 3} .0072394
+{txt}{space 1}calidad_cuid {c |}{col 15}{res}{space 2}-.0166907{col 27}{space 2} .1347492{col 38}{space 1}   -0.12{col 47}{space 3}0.901{col 55}{space 4}-.2807943{col 68}{space 3} .2474128
+{txt}{space 4}ing_hogar {c |}{col 15}{res}{space 2} 1.22e-06{col 27}{space 2} 7.29e-07{col 38}{space 1}    1.67{col 47}{space 3}0.095{col 55}{space 4}-2.12e-07{col 68}{space 3} 2.64e-06
+{txt}{space 5}edu_baja {c |}{col 15}{res}{space 2}-.0518414{col 27}{space 2} .0388501{col 38}{space 1}   -1.33{col 47}{space 3}0.182{col 55}{space 4}-.1279862{col 68}{space 3} .0243034
+{txt}{space 5}edu_alta {c |}{col 15}{res}{space 2}  .058731{col 27}{space 2}   .04448{col 38}{space 1}    1.32{col 47}{space 3}0.187{col 55}{space 4}-.0284483{col 68}{space 3} .1459103
+{txt}{space 10}IH2 {c |}{col 15}{res}{space 2} .0695058{col 27}{space 2} .0453621{col 38}{space 1}    1.53{col 47}{space 3}0.125{col 55}{space 4}-.0194022{col 68}{space 3} .1584139
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estimates store margins_probit
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. exit, clear
